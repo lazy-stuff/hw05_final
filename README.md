@@ -1,3 +1,12 @@
-# hw05_final
+# Yatube
 
-[![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
+#### Описание
+### Социальная сеть для блогеров
+
+#### Технологии
+Python 3.7
+Django 2.2.19
+
+
+#### Автор
+Настя

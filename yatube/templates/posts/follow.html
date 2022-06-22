@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+  Последние обновления в подписках
+{% endblock %}
+
+{% block content %}
+{% load cache %}
+  <div class="container py-5">
+    <h1>Последние обновления в подписках</h1>
+      <article>
+        {% for post in page_obj %}
+          {% include 'posts/includes/post_forloop.html' with show_profile=True show_group=True %}
+        {% endfor %}
+      </article>
+      {% include 'posts/includes/paginator.html' %}
+      <!-- под последним постом нет линии --> 
+  </div>
+{% endblock %}
