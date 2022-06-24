@@ -113,6 +113,7 @@ class PostPagesTests(TestCase):
         form_fields = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField,
+            'image': forms.fields.ImageField,
         }
         for value, expected in form_fields.items():
             with self.subTest(value=value):
@@ -130,7 +131,10 @@ class PostPagesTests(TestCase):
         response = self.guest_client.get(reverse(
             'posts:group_list', kwargs={'slug': self.group.slug}))
         first_object = response.context['page_obj'][0]
+        second_object = response.context['group']
         self.post_assert_method_context(first_object)
+        self.assertEqual(str(second_object), self.group.title)
+        self.assertEqual(second_object.description, self.group.description)
 
     def test_group_2_page_show_correct_context(self):
         """Шаблон group_list сформирован с правильным контекстом."""
@@ -141,10 +145,22 @@ class PostPagesTests(TestCase):
 
     def test_profile_show_correct_context(self):
         """Шаблон group_list сформирован с правильным контекстом."""
-        response = self.guest_client.get(reverse(
+        response = self.authorized_client_2.get(reverse(
             'posts:profile', kwargs={'username': self.user.username}))
         first_object = response.context['page_obj'][0]
+        second_object = response.context['author']
+        third_object = response.context['following']
+        following = (
+            self.user_not_author.is_authenticated and Follow.objects.filter(
+                user=self.user_not_author, author=self.user).exists()
+        )
         self.post_assert_method_context(first_object)
+        self.assertEqual(second_object.username, self.post.author.username)
+        self.assertEqual(
+            second_object.posts.count(),
+            Post.objects.filter(author=self.user).count()
+        )
+        self.assertEqual(third_object, following)
 
     def test_post_detail_show_correct_context_anonymous(self):
         """Шаблон post_detail для анонимного пользователя
@@ -152,7 +168,14 @@ class PostPagesTests(TestCase):
         response = self.guest_client.get(reverse(
             'posts:post_detail', kwargs={'post_id': self.post.id}))
         first_object = response.context['post']
+        second_object = response.context['posts_count']
+        form_field = response.context.get('form').fields.get('text')
+        expected = forms.fields.CharField
         self.post_assert_method_context(first_object)
+        self.assertEqual(
+            second_object, Post.objects.filter(author=self.user).count()
+        )
+        self.assertIsInstance(form_field, expected)
 
     def test_post_edit_show_correct_context(self):
         """Шаблон post_edit сформирован с правильным контекстом."""

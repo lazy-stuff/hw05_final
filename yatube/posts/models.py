@@ -70,6 +70,9 @@ class Comment(models.Model):
         auto_now_add=True
     )
 
+    def __str__(self) -> str:
+        return self.text
+
 
 class Follow(models.Model):
     user = models.ForeignKey(
@@ -85,5 +88,8 @@ class Follow(models.Model):
         verbose_name='Автор'
     )
 
+    class Meta:
+        unique_together = ['user', 'author']
+
     def __str__(self) -> str:
-        return self.user
+        return self.user.username

@@ -9,7 +9,6 @@
     <h1>Последние обновления на сайте</h1>
       <article>
       {% include 'posts/includes/switcher.html' %}
-      {% cache 20 index_page %}
         {% for post in page_obj %}
           {% include 'posts/includes/post_forloop.html' with show_profile=True show_group=True %}
         {% endfor %}
@@ -17,5 +16,4 @@
       {% include 'posts/includes/paginator.html' %}
       <!-- под последним постом нет линии --> 
   </div>
-{% endcache %} 
 {% endblock %}
