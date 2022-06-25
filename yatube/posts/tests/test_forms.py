@@ -64,6 +64,7 @@ class PostCreateFormTests(TestCase):
     def setUp(self):
         """Создаем тестовый экземпляр авторизованного
         пользователя."""
+        self.guest_client = Client()
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
 
@@ -128,3 +129,18 @@ class PostCreateFormTests(TestCase):
         comments_list = response.context.get('post').comments.all()
         self.assertEqual(Comment.objects.count(), comments_count + 1)
         self.assertEqual(comments_list[1].text, form_data['text'])
+
+    def test_add_comment_anonymous(self):
+        """Проверяем, что неавторизованный пользователь не
+        может оставлять комментарии.
+        """
+        comments_count = Comment.objects.count()
+        form_data = {
+            'text': 'Новый комментарий к посту',
+        }
+        self.guest_client.post(
+            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
+            data=form_data,
+            follow=True
+        )
+        self.assertNotEqual(Comment.objects.count(), comments_count + 1)

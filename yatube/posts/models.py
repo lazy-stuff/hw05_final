@@ -92,4 +92,4 @@ class Follow(models.Model):
         unique_together = ['user', 'author']
 
     def __str__(self) -> str:
-        return self.user.username
+        return f'{self.user.username} подписан на {self.author.username}'

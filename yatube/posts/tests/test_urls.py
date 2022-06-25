@@ -104,3 +104,20 @@ class PostURLTests(TestCase):
         address = f'/posts/{self.post.id}/edit/'
         response = self.authorized_client.get(address)
         self.assertTemplateUsed(response, 'posts/create_post.html')
+
+    def test_urls_redirect_authorized(self):
+        """Страницы profile_follow, profile_unfollow, add_comment перенаправят
+        авторизованного пользователя.
+        """
+        adresses = {
+            f'/posts/{self.post.id}/comment/':
+                f'/posts/{self.post.id}/',
+            f'/profile/{self.user.username}/follow/':
+                f'/profile/{self.user.username}/',
+            f'/profile/{self.user.username}/unfollow/':
+                f'/profile/{self.user.username}/',
+        }
+        for address, redirect_adress in adresses.items():
+            with self.subTest(address=address):
+                response = self.authorized_client_2.get(address)
+                self.assertRedirects(response, redirect_adress)

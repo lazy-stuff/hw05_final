@@ -44,7 +44,8 @@ class PostModelTest(TestCase):
             post: post.text,
             group: group.title,
             comment: comment.text,
-            follow: follow.user.username,
+            follow:
+                f'{follow.user.username} подписан на {follow.author.username}',
         }
         for field, expected_text in models.items():
             with self.subTest(field=field):
