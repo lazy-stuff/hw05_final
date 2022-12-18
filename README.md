@@ -44,9 +44,4 @@ $ python3 manage.py runserver
 * [Django](https://www.djangoproject.com)
 
 #### Автор
-
-**Настя Лунегова** - *GitHub* - *[lazy-stuff](https://github.com/lazy-stuff)*
-
-#### License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Настя
