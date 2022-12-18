@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}
-  Последние обновления в подписках
+  Мои подписки
 {% endblock %}
 
 {% block content %}
 {% load cache %}
   <div class="container py-5">
-    <h1>Последние обновления в подписках</h1>
+    <h2>Мои подписки</h2>
       <article>
+        {% include 'posts/includes/switcher.html' %}
         {% for post in page_obj %}
           {% include 'posts/includes/post_forloop.html' with show_profile=True show_group=True %}
         {% endfor %}

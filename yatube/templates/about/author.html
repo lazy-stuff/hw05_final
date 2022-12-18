@@ -1,9 +1,37 @@
 {% extends "base.html" %}
 {% block title %}Об авторе проекта{% endblock %}
 {% block content %}
-<h1>Привет, я автор</h1>
-<p>
-  Тут Настя напишет всё о себе, используя свои умения верстать.
-  Картинки, блоки, элементы бустрап. А может быть, просто напишу несколько абзацев текста. 
-</p>
+{% load static %}
+<div class="container py-5">
+  <div class="card bg-light mb-3" style="max-width: 70rem;">
+    <div class="card-header">Приветствие от автора</div>
+      <div class="card-body">
+        <div class="row">
+          <aside class="col- 9 col-md-3">
+            <img src="{% static 'img/author.jpg' %}" width="100" height="350" 
+            class="card-img my-2">
+          </aside>
+          <article class="col-9 col-md-6">
+            <p class="card-text">Привет! </p>
+            <p>Меня зовут Настя Лунегова и недавно я начала изучать Python.
+              Здесь размещен мой первый учебный проект - социальная сеть для блогеров.
+              Например, тут можно зарегистрироваться и писать комментарии Льву Толстому!</p>
+            <p></p> 
+            <p>Ниже оставляю контакты для предложений по улучшению этого сайта.</p>
+            <p>
+              <big><a style="color: #dd4b39;" href="mailto:anastasia.lunegova@gmail.com" role="button"
+                ><i class="fab fa-google fa-lg"></i
+                ></a></big>
+              <big><a style="color: #333333;" href="https://github.com/lazy-stuff" role="button"
+                ><i class="fab fa-github fa-lg"></i
+                ></a></big>
+              <big><a style="color: #ac2bac;" href="https://www.instagram.com/lazy.stuff/" role="button"
+                ><i class="fab fa-instagram fa-lg"></i
+                ></a></big>
+            </p>
+          </article>
+        </div>
+      </div>
+  </div>
+</div>
 {% endblock %}

@@ -38,7 +38,8 @@ class Post(models.Model):
     image = models.ImageField(
         'Картинка',
         upload_to='posts/',
-        blank=True
+        blank=True,
+        null=True
     )
 
     class Meta:
@@ -67,7 +68,8 @@ class Comment(models.Model):
     )
     created = models.DateTimeField(
         verbose_name='Дата публикации комментария',
-        auto_now_add=True
+        auto_now_add=True,
+        db_index=True
     )
 
     def __str__(self) -> str:

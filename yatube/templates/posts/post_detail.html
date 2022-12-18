@@ -15,8 +15,8 @@
           {% if post.group %}       
           <li class="list-group-item">
             Группа: {{ post.group }}
-            <p><a href="{% url 'posts:group_list' post.group.slug %}"
-            >все записи группы</a></p>
+            <a href="{% url 'posts:group_list' post.group.slug %}">
+              все записи группы</a>
           {% endif %}  
           </li>
           <li class="list-group-item">
@@ -37,17 +37,16 @@
         <img class="card-img my-2" src="{{ im.url }}">
       {% endthumbnail %}
       <p>
-        {{ post.text |linebreaksbr }}
+        <big>{{ post.text |linebreaksbr }}</big>
       </p>
       {% if request.user.username == post.author.username %}
-        <button type="button" class="btn btn-outline-primary">
-          <a href="{% url 'posts:post_edit' post.id %}">
-            Редактировать
-          </a>
-        </button>
+        <a href="{% url 'posts:post_edit' post.id %}" class="btn btn-primary"
+        >Редактировать</a>
       {% endif %}
+      <p>
+        {% include 'posts/includes/comments.html' %}
+      </p>
     </article>
-    {% include 'posts/includes/comments.html' %}
   </div>
 </div>
 {% endblock %}
